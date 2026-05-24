@@ -223,7 +223,19 @@ Agradecemos imensamente ao nosso orientador pelo suporte, direcionamento e dedic
 </div>
 
 ---
+<h1>MVP online</h1>
 
+<p>
+  Nosso MVP já está online e disponível para testes.
+</p>
+
+<p>
+  Acesse agora: 
+  <a href="https://teia-henna.vercel.app/" target="_blank">
+    https://teia-henna.vercel.app/
+  </a>
+</p>
+---
 <div align="center">
   <img src="assets/images/banner.png" alt="TEIA Banner" width="100%"/>
   <br/><br/>

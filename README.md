@@ -141,7 +141,7 @@ Siga os passos abaixo para rodar o projeto localmente:
 **1. Clone o repositório:**
 
 ```bash
-git clone https://github.com/seu-usuario/teia.git
+git clone https://github.com/lauangabriell/TEIA-MVPv1
 ```
 
 **2. Acesse a pasta do projeto:**
@@ -159,7 +159,7 @@ npm install
 **4. Inicie o servidor:**
 
 ```bash
-npm start
+node server.js
 ```
 
 **5. Acesse no navegador:**

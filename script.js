@@ -521,12 +521,15 @@ function removerBotoesEscolha() {
 function adicionarMensagemUsuario(texto) {
   const mensagens = document.getElementById("mensagens");
 
-  mensagens.innerHTML += `
-    <div class="mensagem mensagem-usuario">
-      <strong>Você:</strong><br>
-      ${escaparHTML(texto).replace(/\n/g, "<br>")}
-    </div>
+  const div = document.createElement("div");
+  div.className = "mensagem mensagem-usuario";
+
+  div.innerHTML = `
+    <strong>Você</strong><br>
+    ${escaparHTML(texto).replace(/\n/g, "<br>")}
   `;
+
+  mensagens.appendChild(div);
 
   rolarChatParaBaixo();
 }
@@ -534,12 +537,15 @@ function adicionarMensagemUsuario(texto) {
 function adicionarMensagemIA(texto) {
   const mensagens = document.getElementById("mensagens");
 
-  mensagens.innerHTML += `
-    <div class="mensagem mensagem-ia">
-      <strong>TEIA:</strong><br>
-      ${formatarRespostaIA(texto)}
-    </div>
+  const div = document.createElement("div");
+  div.className = "mensagem mensagem-ia";
+
+  div.innerHTML = `
+    <strong>TEIA</strong><br>
+    ${formatarRespostaIA(texto)}
   `;
+
+  mensagens.appendChild(div);
 
   rolarChatParaBaixo();
 }

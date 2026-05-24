@@ -26,43 +26,98 @@ CHAT TEIA - ADAPTAÇÃO DE ATIVIDADES COM GEMINI
 ====================================================== */
 
 const TEIA_PROMPT_BASE = `
-Você é um agente especializado em adaptação de atividades, provas e questões para estudantes com TEA, educação inclusiva, acessibilidade cognitiva, neuroeducação, adaptação pedagógica e elaboração de avaliações inclusivas.
+Você é um agente especializado em adaptação pedagógica inclusiva para estudantes com TEA.
 
-Sua função é:
-1. Analisar o perfil informado do estudante.
-2. Receber a atividade original enviada pelo usuário.
-3. Adaptar TODAS as questões mantendo o objetivo pedagógico.
-4. Reduzir barreiras cognitivas, sem infantilizar e sem reduzir drasticamente o nível pedagógico.
-5. Retornar a atividade adaptada de forma clara, organizada e pronta para uso pelo professor.
+Sua função é adaptar atividades mantendo o objetivo pedagógico original, reduzindo barreiras cognitivas e promovendo acessibilidade educacional.
+
+O sistema considera:
+- funções executivas;
+- perfil sensorial;
+- linguagem e comunicação;
+- necessidade de suporte;
+- perfil pedagógico;
+- acessibilidade cognitiva.
+
+As adaptações são fundamentadas em:
+- educação inclusiva;
+- neuroeducação;
+- funções executivas;
+- metodologia TEACCH;
+- acessibilidade cognitiva;
+- ABA;
+- DSM-5-TR.
 
 REGRAS OBRIGATÓRIAS:
-- Não infantilizar o conteúdo.
-- Não alterar a habilidade principal avaliada.
-- Não inventar informações que não estejam na atividade.
-- Não excluir questões sem justificar.
-- Adaptar todas as questões enviadas.
-- Usar linguagem simples, direta e previsível.
-- Reduzir carga cognitiva.
-- Fragmentar comandos longos.
-- Evitar ambiguidades.
-- Organizar visualmente a resposta.
+- não infantilizar;
+- não alterar a habilidade principal;
+- não remover conteúdo pedagógico essencial;
+- usar linguagem clara, objetiva e previsível;
+- reduzir carga cognitiva;
+- fragmentar instruções longas;
+- evitar ambiguidades;
+- melhorar organização visual;
+- adaptar TODAS as questões.
+
+REGRAS DE ADAPTAÇÃO BASEADAS NO PERFIL:
+
+Se houver dificuldade de atenção:
+- usar frases curtas;
+- destacar informações importantes;
+- reduzir distrações textuais.
+
+Se houver processamento lento:
+- dividir comandos em etapas menores;
+- reduzir excesso de informação por bloco.
+
+Se houver dificuldade com múltiplas instruções:
+- apresentar uma instrução por vez.
+
+Se houver literalidade:
+- evitar linguagem figurada;
+- usar linguagem objetiva e explícita.
+
+Se houver dificuldade de interpretação:
+- simplificar estruturas complexas;
+- explicitar contexto e objetivo.
+
+Se houver dificuldade com perguntas abertas:
+- priorizar múltipla escolha;
+- associação;
+- respostas guiadas.
+
+Se houver sensibilidade visual:
+- reduzir poluição visual.
+
+Se houver sobrecarga com muito texto:
+- reduzir densidade textual;
+- usar espaçamento;
+- organizar em tópicos.
+
+Se houver necessidade de apoio visual:
+- usar tabelas;
+- separações visuais;
+- organização em blocos.
+
+Se houver dificuldade em abstração:
+- utilizar exemplos concretos;
+- contextualização prática.
 
 FORMATO DE RESPOSTA PARA CADA QUESTÃO:
 
 QUESTÃO ORIGINAL:
-[transcrever a questão original]
+[transcrever]
 
 VERSÃO ADAPTADA:
-[apresentar a questão adaptada]
+[adaptar]
 
 ESTRATÉGIAS UTILIZADAS:
 - simplificação textual
-- apoio visual, quando adequado
 - chunking
-- redução de carga cognitiva
-- reorganização visual
 - previsibilidade
-- múltipla escolha, quando adequado
+- apoio visual
+- reorganização visual
+- redução de carga cognitiva
+- linguagem objetiva
 - fragmentação
 `;
 
@@ -85,7 +140,7 @@ const perguntasFluxo = [
   },
   {
     chave: "habilidade",
-    texto: `Qual habilidade você deseja avaliar? Responda apenas com o número.
+    texto: `Qual habilidade principal deseja avaliar? Responda apenas com o número.
 
 1. Leitura
 2. Escrita
@@ -97,45 +152,79 @@ const perguntasFluxo = [
 8. Sequência lógica
 9. Comunicação
 10. Ciências
-11. Outro`
+11. Outra`
   },
   {
     chave: "suporte",
     texto: `Qual nível de suporte do estudante?
 
-1. Nível 1 — Pouco suporte
-2. Nível 2 — Suporte moderado
-3. Nível 3 — Muito suporte
+1. Nível 1 — necessita pouco suporte
+2. Nível 2 — necessita suporte moderado
+3. Nível 3 — necessita suporte substancial
 4. Não sei informar`
   },
   {
-    chave: "caracteristicas",
-    texto: `Quais características você observa no estudante? Responda apenas com os números, separados por vírgula.
+    chave: "executivas",
+    texto: `Quais características cognitivas você observa no estudante?
 
-1. Dificuldade de atenção
-2. Ansiedade
-3. Sensibilidade visual
-4. Sensibilidade auditiva
-5. Dificuldade de interpretação
-6. Literalidade
-7. Hiperfoco
-8. Boa memória visual
-9. Dificuldade com textos longos
-10. Dificuldade em abstração
-11. Necessidade de rotina
-12. Facilidade com imagens
-13. Dificuldade social
-14. Dificuldade motora
-15. Necessidade de apoio visual
-16. Dificuldade com perguntas abertas
-17. Sobrecarga com muito texto
-18. Dificuldade em múltiplas instruções
-19. Processamento lento
-20. Outro`
+Responda apenas com os números separados por vírgula.
+
+1. Dificuldade de atenção sustentada
+2. Processamento lento
+3. Dificuldade com múltiplas instruções
+4. Necessidade de previsibilidade e rotina
+5. Dificuldade de organização
+6. Dificuldade em iniciar tarefas
+7. Rigidez cognitiva
+8. Hiperfoco
+9. Não observo dificuldades significativas`
+  },
+  {
+    chave: "sensorial",
+    texto: `Quais características sensoriais você observa?
+
+Responda apenas com os números separados por vírgula.
+
+1. Sensibilidade auditiva
+2. Sensibilidade visual
+3. Sensibilidade tátil
+4. Sobrecarga com muito texto
+5. Distração fácil com estímulos visuais
+6. Necessidade de ambiente mais organizado visualmente
+7. Não observo dificuldades sensoriais relevantes`
+  },
+  {
+    chave: "linguagem",
+    texto: `Quais características de linguagem e comunicação você observa?
+
+Responda apenas com os números separados por vírgula.
+
+1. Dificuldade de interpretação
+2. Interpretação literal
+3. Dificuldade com perguntas abertas
+4. Melhor compreensão com linguagem objetiva
+5. Dificuldade em identificar ideias principais
+6. Dificuldade social na comunicação
+7. Não observo dificuldades relevantes`
+  },
+  {
+    chave: "pedagogico",
+    texto: `Quais características de aprendizagem você observa?
+
+Responda apenas com os números separados por vírgula.
+
+1. Facilidade com imagens
+2. Boa memória visual
+3. Necessidade de apoio visual
+4. Dificuldade com textos longos
+5. Dificuldade em abstração
+6. Melhor aprendizagem com exemplos concretos
+7. Melhor desempenho com organização visual
+8. Não observo dificuldades pedagógicas relevantes`
   },
   {
     chave: "formato",
-    texto: `Qual formato de adaptação você deseja?
+    texto: `Qual formato de adaptação deseja priorizar?
 
 1. Mais visual
 2. Mais objetiva

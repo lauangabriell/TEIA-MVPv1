@@ -139,7 +139,7 @@ function montarPromptFinal(promptBase, parametros, atividadeTexto) {
   return `
 ${promptBase}
 
-DADOS DO ESTUDANTE:
+PERFIL DO ESTUDANTE:
 
 Série/Ano:
 ${parametros.serie || "Não informado"}
@@ -147,23 +147,32 @@ ${parametros.serie || "Não informado"}
 Disciplina:
 ${parametros.disciplina || "Não informado"}
 
-Habilidade avaliada:
+Habilidade principal avaliada:
 ${parametros.habilidade || "Não informado"}
 
-Nível de suporte:
+Nível de suporte (DSM-5-TR):
 ${parametros.suporte || "Não informado"}
 
-Características observadas:
-${parametros.caracteristicas || "Não informado"}
+Funções executivas observadas:
+${parametros.executivas || "Não informado"}
+
+Perfil sensorial:
+${parametros.sensorial || "Não informado"}
+
+Linguagem e comunicação:
+${parametros.linguagem || "Não informado"}
+
+Perfil pedagógico:
+${parametros.pedagogico || "Não informado"}
 
 Formato de adaptação desejado:
 ${parametros.formato || "Não informado"}
 
-ATIVIDADE ORIGINAL COLADA PELO USUÁRIO:
+ATIVIDADE ORIGINAL:
 ${atividadeTexto || "A atividade foi enviada em arquivo anexo."}
 
 TAREFA:
-Adapte integralmente a atividade enviada, respeitando os dados do estudante e o formato solicitado.
+Adapte integralmente a atividade enviada respeitando o perfil completo do estudante e o formato solicitado.
 `;
 }
 

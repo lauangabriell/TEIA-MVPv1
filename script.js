@@ -14,11 +14,13 @@ function mostrarPagina(nomeDaPagina) {
 
 // Vai para uma seção da página inicial.
 function irParaSecao(idDaSecao) {
-  mostrarPagina('inicio');
+  // Mostra a página início sem rolar para o topo
+  document.getElementById('pagina-inicio').classList.add('ativa');
+  document.getElementById('pagina-chat').classList.remove('ativa');
 
   setTimeout(function () {
     document.getElementById(idDaSecao).scrollIntoView({ behavior: 'smooth' });
-  }, 100);
+  }, 50);
 }
 
 /* ======================================================

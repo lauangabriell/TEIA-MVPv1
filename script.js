@@ -102,6 +102,12 @@ Se houver dificuldade em abstração:
 - utilizar exemplos concretos;
 - contextualização prática.
 
+REGRAS DE FORMATAÇÃO:
+- não usar markdown;
+- não usar asteriscos, negrito, itálico ou qualquer símbolo de formatação;
+- usar apenas texto simples e quebras de linha;
+- o texto será exportado diretamente para PDF e DOCX.
+
 FORMATO DE RESPOSTA PARA CADA QUESTÃO:
 
 QUESTÃO ORIGINAL:
@@ -344,19 +350,33 @@ function registrarParametro(respostaUsuario) {
   );
 }
 
+function mostrarCarregando() {
+  const mensagens = document.getElementById("mensagens");
+  mensagens.innerHTML += `
+    <div class="mensagem mensagem-ia" id="msg-carregando">
+      <div class="carregando-wrapper">
+        <img src="TEIA_icone_app_512x512.png" class="logo-girando" alt="carregando" />
+        <p class="carregando-texto">Adaptando<span>.</span><span>.</span><span>.</span></p>
+      </div>
+    </div>
+  `;
+  rolarChatParaBaixo();
+}
+
+function esconderCarregando() {
+  const msg = document.getElementById("msg-carregando");
+  if (msg) msg.remove();
+}
+
 async function enviarAtividadeParaGemini(textoAtividade, arquivo) {
-  adicionarMensagemIA("Recebi a atividade. Estou preparando a adaptação com base no perfil informado...");
+  if (arquivo) adicionarMensagemUsuario(`Arquivo enviado: ${arquivo.name}`);
+  mostrarCarregando();
 
   const formData = new FormData();
-
   formData.append("promptBase", TEIA_PROMPT_BASE);
   formData.append("parametros", JSON.stringify(parametrosAluno));
   formData.append("atividadeTexto", textoAtividade || "");
-
-  if (arquivo) {
-    formData.append("arquivo", arquivo);
-    adicionarMensagemUsuario(`Arquivo enviado: ${arquivo.name}`);
-  }
+  if (arquivo) formData.append("arquivo", arquivo);
 
   try {
     const resposta = await fetch("/api/adaptar-atividade", {
@@ -364,30 +384,24 @@ async function enviarAtividadeParaGemini(textoAtividade, arquivo) {
       body: formData
     });
 
-    if (!resposta.ok) {
-      throw new Error("Erro ao chamar a API da Gemini.");
-    }
+    if (!resposta.ok) throw new Error("Erro ao chamar a API da Gemini.");
 
     const dados = await resposta.json();
+    esconderCarregando();
 
     sessionId = dados.sessionId || null;
-
     adicionarMensagemIA(dados.resposta || "A IA não retornou uma resposta válida.");
 
-    if (sessionId) {
-      mostrarEscolhaPosAdaptacao();
-    }
+    if (sessionId) mostrarEscolhaPosAdaptacao(dados.resposta);
   } catch (erro) {
+    esconderCarregando();
     console.error(erro);
-
-    adicionarMensagemIA(
-      "Não consegui gerar a adaptação agora. Verifique se o servidor está rodando, se a chave da Gemini foi configurada e se o arquivo está em formato aceito."
-    );
+    adicionarMensagemIA("Não consegui gerar a adaptação agora. Verifique se o servidor está rodando, se a chave da Gemini foi configurada e se o arquivo está em formato aceito.");
   }
 }
 
 async function enviarMensagemContinuacao(mensagem) {
-  adicionarMensagemIA("Entendido! Processando sua solicitação...");
+  mostrarCarregando();
 
   try {
     const resposta = await fetch("/api/chat-continuar", {
@@ -402,19 +416,19 @@ async function enviarMensagemContinuacao(mensagem) {
     }
 
     const dados = await resposta.json();
+    esconderCarregando();
 
-    adicionarMensagemIA(dados.resposta || "A IA não retornou uma resposta válida.");
-    mostrarEscolhaPosAdaptacao();
+    const textoResposta = dados.resposta || "A IA não retornou uma resposta válida.";
+    adicionarMensagemIA(textoResposta);
+    mostrarEscolhaPosAdaptacao(textoResposta);
   } catch (erro) {
+    esconderCarregando();
     console.error(erro);
-
-    adicionarMensagemIA(
-      "Não consegui processar sua solicitação. " + erro.message
-    );
+    adicionarMensagemIA("Não consegui processar sua solicitação. " + erro.message);
   }
 }
 
-function mostrarEscolhaPosAdaptacao() {
+function mostrarEscolhaPosAdaptacao(textoAdaptacao) {
   const mensagens = document.getElementById("mensagens");
 
   mensagens.innerHTML += `
@@ -422,8 +436,14 @@ function mostrarEscolhaPosAdaptacao() {
       <strong>TEIA:</strong><br>
       O que deseja fazer agora?<br><br>
       <div class="botoes-escolha">
+        <button class="botao-escolha botao-escolha-pdf" onclick="baixarArquivo(this, 'pdf')">
+          ⬇ Baixar PDF
+        </button>
+        <button class="botao-escolha botao-escolha-docx" onclick="baixarArquivo(this, 'docx')">
+          ⬇ Baixar DOCX
+        </button>
         <button class="botao-escolha" onclick="mesmoPerfilNovaAtividade()">
-          Adaptar outra atividade com o mesmo perfil
+          Mesma perfil, nova atividade
         </button>
         <button class="botao-escolha botao-escolha-secundario" onclick="novoPerfilNovaAtividade()">
           Novo perfil e nova atividade
@@ -432,7 +452,43 @@ function mostrarEscolhaPosAdaptacao() {
     </div>
   `;
 
+  const botoes = mensagens.querySelectorAll(".escolha-pos-adaptacao .botao-escolha-pdf, .escolha-pos-adaptacao .botao-escolha-docx");
+  botoes.forEach(b => b._textoAdaptacao = textoAdaptacao);
+
   rolarChatParaBaixo();
+}
+
+async function baixarArquivo(botao, tipo) {
+  const texto = botao._textoAdaptacao;
+  if (!texto) return;
+
+  const labelOriginal = botao.textContent;
+  botao.textContent = "Gerando...";
+  botao.disabled = true;
+
+  try {
+    const resposta = await fetch(`/api/gerar-${tipo}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ texto })
+    });
+
+    if (!resposta.ok) throw new Error(`Erro ao gerar ${tipo.toUpperCase()}.`);
+
+    const blob = await resposta.blob();
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `atividade-adaptada.${tipo}`;
+    link.click();
+    URL.revokeObjectURL(url);
+
+    botao.textContent = `✓ ${tipo.toUpperCase()} baixado`;
+  } catch (erro) {
+    console.error(erro);
+    botao.textContent = labelOriginal;
+    botao.disabled = false;
+  }
 }
 
 function mesmoPerfilNovaAtividade() {

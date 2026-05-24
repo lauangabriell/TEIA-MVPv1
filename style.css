@@ -4,6 +4,29 @@
        Agora o projeto está separado em HTML, CSS e JavaScript.
        ====================================================== */
 
+    /* ---------- SCROLLBAR ---------- */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #080f1a;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #1a3a5c;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--azul);
+    }
+
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: #1a3a5c #080f1a;
+    }
+
     /* ---------- CORES DO SITE ---------- */
     :root {
       --fundo: #080f1a;
@@ -77,6 +100,15 @@
     }
 
     /* ---------- MENU ---------- */
+    .header-sticky {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8,15,26,.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--linha);
+    }
+
     .menu {
       min-height: 88px;
       display: flex;
@@ -97,12 +129,20 @@
       cursor: pointer;
     }
 
-    .bolinha-logo {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--azul-claro);
-      box-shadow: 0 0 16px var(--azul-claro);
+    .logo-icone {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      animation: logo-brilho 3.6s ease-in-out infinite;
+    }
+
+    @keyframes logo-brilho {
+      0%, 100% {
+        filter: drop-shadow(0 0 5px rgba(255,255,255,.5)) brightness(1.05);
+      }
+      50% {
+        filter: drop-shadow(0 0 10px rgba(255,255,255,.9)) brightness(1.2);
+      }
     }
 
     .links-menu {
@@ -365,7 +405,8 @@
     }
 
     .grade-3,
-    .grade-4 {
+    .grade-4,
+    .grade-5 {
       display: grid;
       gap: 18px;
     }
@@ -376,6 +417,10 @@
 
     .grade-4 {
       grid-template-columns: repeat(4, 1fr);
+    }
+
+    .grade-5 {
+      grid-template-columns: repeat(5, 1fr);
     }
 
     .card {
@@ -428,17 +473,51 @@
       line-height: 1.55;
     }
 
+    .lista-metodo-completa {
+      grid-template-columns: 1fr;
+    }
+
+    .bases-metodo {
+      margin-top: 32px;
+      padding: 22px 24px;
+      border-radius: 18px;
+      border: 1px solid var(--linha);
+      background: rgba(232,240,248,.025);
+    }
+
+    .bases-metodo .titulo-pequeno {
+      display: block;
+      margin-bottom: 14px;
+    }
+
+    .bases-lista {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .base-tag {
+      padding: 5px 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(77, 157, 224, 0.3);
+      color: var(--azul-claro);
+      font-size: 13px;
+      background: rgba(77, 157, 224, 0.07);
+    }
+
     .passo-numero {
       width: 42px;
       height: 42px;
       border-radius: 14px;
       display: grid;
       place-items: center;
-      color: #06101e;
+      color: #fff;
       font-weight: 900;
-      background: linear-gradient(135deg, var(--azul-claro), var(--amarelo));
       margin-bottom: 18px;
+      background: linear-gradient(135deg, #1a3a5c, var(--azul));
+      border: 1px solid rgba(77, 157, 224, 0.35);
     }
+
 
     .rodape {
       padding: 34px 0 50px;
@@ -674,6 +753,46 @@
       border-color: rgba(77,157,224,.4);
     }
 
+    .carregando-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 6px 0;
+    }
+
+    @keyframes girar-horario {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    .logo-girando {
+      width: 56px;
+      height: 56px;
+      object-fit: contain;
+      animation: girar-horario 2s linear infinite;
+    }
+
+    .carregando-texto {
+      color: var(--texto-suave);
+      font-size: 13px;
+      margin: 0;
+      line-height: 1;
+    }
+
+    @keyframes dot-pular {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.3; }
+      30% { transform: translateY(-5px); opacity: 1; }
+    }
+
+    .carregando-texto span {
+      display: inline-block;
+      animation: dot-pular 1s ease-in-out infinite;
+    }
+
+    .carregando-texto span:nth-child(2) { animation-delay: 0.15s; }
+    .carregando-texto span:nth-child(3) { animation-delay: 0.3s; }
+
     .botoes-escolha {
       display: flex;
       flex-wrap: wrap;
@@ -709,6 +828,35 @@
       color: var(--texto);
     }
 
+    .botao-escolha-pdf {
+      border-color: var(--amarelo);
+      background: rgba(245,200,66,.1);
+      color: var(--amarelo);
+    }
+
+    .botao-escolha-pdf:hover {
+      background: var(--amarelo);
+      color: #06101e;
+    }
+
+    .botao-escolha-docx {
+      border-color: #5db075;
+      background: rgba(93,176,117,.1);
+      color: #5db075;
+    }
+
+    .botao-escolha-docx:hover {
+      background: #5db075;
+      color: #06101e;
+    }
+
+    .botao-escolha-pdf:disabled,
+    .botao-escolha-docx:disabled {
+      opacity: 0.6;
+      cursor: default;
+      transform: none;
+    }
+
     /* ---------- RESPONSIVO ---------- */
     @media (max-width: 920px) {
       .links-menu {
@@ -724,6 +872,10 @@
       .grade-3,
       .grade-4 {
         grid-template-columns: 1fr;
+      }
+
+      .grade-5 {
+        grid-template-columns: repeat(3, 1fr);
       }
 
       .area-teia {
@@ -743,6 +895,10 @@
 
       .inicio {
         padding-bottom: 60px;
+      }
+
+      .grade-5 {
+        grid-template-columns: 1fr;
       }
 
       .mensagem {

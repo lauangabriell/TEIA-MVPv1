@@ -13,21 +13,25 @@
        PÁGINA 1: INÍCIO DO SITE
        ====================================================== -->
   <main class="pagina ativa" id="pagina-inicio">
+    <header class="header-sticky">
+      <div class="container">
+        <nav class="menu">
+          <a class="logo" onclick="mostrarPagina('inicio')">Teia<img src="TEIA_icone_app_512x512.png" class="logo-icone" alt="logo TEIA" /></a>
+
+          <ul class="links-menu">
+            <li><a onclick="mostrarPagina('inicio')">Início</a></li>
+            <li><a onclick="irParaSecao('ensino-inclusivo')">Ensino Inclusivo</a></li>
+            <li><a onclick="irParaSecao('metodo')">Método</a></li>
+            <li><a onclick="irParaSecao('funcionamento')">Funcionamento</a></li>
+            <li><a onclick="irParaSecao('impacto')">Impacto</a></li>
+          </ul>
+
+          <a class="botao-menu" onclick="mostrarPagina('chat')">Testar</a>
+        </nav>
+      </div>
+    </header>
+
     <div class="container">
-      <nav class="menu">
-        <a class="logo" onclick="mostrarPagina('inicio')">Teia<span class="bolinha-logo"></span></a>
-
-        <ul class="links-menu">
-          <li><a onclick="mostrarPagina('chat')">Testar plataforma</a></li>
-          <li><a onclick="irParaSecao('ensino-inclusivo')">Ensino Inclusivo</a></li>
-          <li><a onclick="irParaSecao('metodo')">Método</a></li>
-          <li><a onclick="irParaSecao('funcionamento')">Funcionamento</a></li>
-          <li><a onclick="irParaSecao('impacto')">Impacto</a></li>
-        </ul>
-
-        <a class="botao-menu" onclick="mostrarPagina('chat')">Testar</a>
-      </nav>
-
       <section class="inicio">
         <div>
           <div class="etiqueta"><span class="ponto"></span> Educação inclusiva com IA</div>
@@ -130,31 +134,30 @@
       <div class="container">
         <div class="cabecalho-secao">
           <div class="titulo-pequeno">Ensino Inclusivo</div>
-          <h2>Inclusão não é só presença. É participação real.</h2>
+          <h2>Inclusão exige adaptação real.</h2>
           <p class="texto-secao">
-            A inclusão escolar precisa oferecer condições pedagógicas adequadas,
-            respeitando as diferenças cognitivas, sensoriais e comportamentais de cada estudante.
+            A aprendizagem acontece melhor quando as atividades respeitam diferenças cognitivas, sensoriais
+            e formas individuais de processamento.
           </p>
         </div>
 
         <div class="grade-3">
           <article class="card">
-            <span class="tag-amarela">Desafio</span>
-            <h3>Materiais genéricos</h3>
-            <p>Muitos materiais encontrados online não consideram o nível de suporte, a idade e o perfil sensorial do
-              estudante.</p>
+            <div class="passo-numero">1</div>
+            <h3>Materiais pouco adaptáveis</h3>
+            <p>A maioria das atividades escolares foi criada para um modelo único de aprendizagem e não considera diferentes perfis cognitivos e sensoriais.</p>
           </article>
 
           <article class="card">
-            <span class="tag-amarela">Impacto</span>
-            <h3>Sobrecarga docente</h3>
-            <p>A adaptação manual pode ultrapassar a jornada de trabalho e aumentar a carga mental do professor.</p>
+            <div class="passo-numero">2</div>
+            <h3>Sobrecarga na adaptação manual</h3>
+            <p>Professores precisam reorganizar conteúdos manualmente, tornando a adaptação lenta, cansativa e difícil de escalar no dia a dia escolar.</p>
           </article>
 
           <article class="card">
-            <span class="tag-amarela">Solução</span>
-            <h3>Personalização rápida</h3>
-            <p>A TEIA recebe uma atividade comum e o perfil do estudante para gerar uma adaptação mais acessível.</p>
+            <div class="passo-numero">3</div>
+            <h3>Adaptação guiada por perfil</h3>
+            <p>A TEIA utiliza informações do perfil de aprendizagem do estudante para gerar atividades mais acessíveis, previsíveis e pedagogicamente organizadas.</p>
           </article>
         </div>
       </div>
@@ -164,30 +167,32 @@
       <div class="container">
         <div class="cabecalho-secao">
           <div class="titulo-pequeno">Método</div>
-          <h2>Adaptações guiadas por critérios pedagógicos.</h2>
+          <h2>Adaptação pedagógica baseada em perfil cognitivo e acessibilidade educacional.</h2>
           <p class="texto-secao">
-            A plataforma usa estratégias como linguagem objetiva, fragmentação de etapas,
-            previsibilidade, apoio visual e motivação por interesses do estudante.
+            A plataforma utiliza princípios de neuroeducação, acessibilidade cognitiva, ABA, funções executivas
+            e educação inclusiva para personalizar atividades conforme o perfil funcional de aprendizagem do estudante.
           </p>
         </div>
 
-        <div class="metodo">
-          <article class="card">
-            <span class="tag-amarela">Como funciona</span>
-            <h3>Perfil + atividade</h3>
-            <p>O professor informa o perfil pedagógico do aluno e envia a atividade original. A IA sugere uma adaptação
-              e o professor pode revisar antes de aplicar.</p>
-          </article>
+        <div class="lista-metodo lista-metodo-completa">
+          <div class="item-metodo"><strong>1. Perfil funcional de aprendizagem</strong><span>O sistema identifica características cognitivas, sensoriais, comunicacionais e pedagógicas relevantes para compreender barreiras de aprendizagem e orientar adaptações individualizadas.</span></div>
+          <div class="item-metodo"><strong>2. Linguagem cognitivamente acessível</strong><span>Os enunciados são reorganizados com linguagem objetiva, previsível e menos ambígua, reduzindo demandas excessivas de interpretação e processamento.</span></div>
+          <div class="item-metodo"><strong>3. Fragmentação e redução de carga cognitiva</strong><span>Instruções complexas são divididas em pequenas etapas para facilitar atenção sustentada, compreensão e execução progressiva.</span></div>
+          <div class="item-metodo"><strong>4. Estruturação visual e previsibilidade</strong><span>A organização visual das atividades favorece previsibilidade, orientação espacial e suporte ao processamento visual da informação.</span></div>
+          <div class="item-metodo"><strong>5. Engajamento baseado em interesses</strong><span>Quando adequado pedagogicamente, elementos de interesse do estudante podem ser utilizados para ampliar motivação e participação na atividade.</span></div>
+        </div>
 
-          <div class="lista-metodo">
-            <div class="item-metodo"><strong>1. Linguagem acessível</strong><span>Enunciados mais objetivos, com menos
-                ambiguidade.</span></div>
-            <div class="item-metodo"><strong>2. Etapas menores</strong><span>A atividade é dividida para reduzir
-                sobrecarga cognitiva.</span></div>
-            <div class="item-metodo"><strong>3. Apoio visual</strong><span>Organização mais clara e previsível.</span>
-            </div>
-            <div class="item-metodo"><strong>4. Interesse e motivação</strong><span>Uso de hiperfocos para aumentar o
-                engajamento.</span></div>
+        <div class="bases-metodo">
+          <span class="titulo-pequeno">Bases utilizadas</span>
+          <div class="bases-lista">
+            <span class="base-tag">Educação inclusiva</span>
+            <span class="base-tag">Neuroeducação</span>
+            <span class="base-tag">Acessibilidade cognitiva</span>
+            <span class="base-tag">Funções executivas</span>
+            <span class="base-tag">ABA</span>
+            <span class="base-tag">TEACCH</span>
+            <span class="base-tag">DSM-5-TR</span>
+            <span class="base-tag">Estratégias pedagógicas estruturadas</span>
           </div>
         </div>
       </div>
@@ -200,26 +205,31 @@
           <h2>Um fluxo simples para o professor.</h2>
         </div>
 
-        <div class="grade-4">
+        <div class="grade-5">
           <article class="card">
             <div class="passo-numero">1</div>
             <h3>Perfil</h3>
-            <p>O professor informa faixa etária, nível de suporte e características do estudante.</p>
+            <p>Responda 9 perguntas sobre o estudante: série, disciplina, habilidade, nível de suporte, funções executivas, perfil sensorial, linguagem, aprendizagem e formato desejado.</p>
           </article>
           <article class="card">
             <div class="passo-numero">2</div>
             <h3>Atividade</h3>
-            <p>O professor cola ou envia a atividade original que deseja adaptar.</p>
+            <p>Cole o texto da atividade no chat ou envie um arquivo PDF, DOC, DOCX ou TXT diretamente.</p>
           </article>
           <article class="card">
             <div class="passo-numero">3</div>
-            <h3>IA</h3>
-            <p>A TEIA analisa barreiras e sugere uma versão mais acessível.</p>
+            <h3>Adaptação</h3>
+            <p>A TEIA analisa o perfil completo e adapta todas as questões com base em TEACCH, ABA e DSM-5-TR, reduzindo barreiras cognitivas.</p>
           </article>
           <article class="card">
             <div class="passo-numero">4</div>
-            <h3>Revisão</h3>
-            <p>O professor revisa a resposta e decide como aplicar em sala de aula.</p>
+            <h3>Ajustes</h3>
+            <p>O professor revisa a adaptação no chat e pode pedir ajustes diretamente — como refazer uma questão ou simplificar mais.</p>
+          </article>
+          <article class="card">
+            <div class="passo-numero">5</div>
+            <h3>Download</h3>
+            <p>Baixe a atividade adaptada em PDF ou DOCX, pronta para imprimir ou editar no Word.</p>
           </article>
         </div>
       </div>
@@ -229,11 +239,37 @@
       <div class="container">
         <div class="cabecalho-secao">
           <div class="titulo-pequeno">Impacto</div>
-          <h2>Menos sobrecarga. Mais inclusão.</h2>
+          <h2>Menos tempo adaptando. Mais tempo ensinando.</h2>
           <p class="texto-secao">
-            A TEIA busca reduzir o tempo gasto com adaptações manuais, apoiar professores
-            e tornar a aprendizagem mais acessível para estudantes com TEA.
+            A TEIA auxilia professores na criação de adaptações pedagógicas mais rápidas, acessíveis e organizadas,
+            reduzindo sobrecarga e ampliando a participação de estudantes neurodivergentes no ambiente escolar.
           </p>
+        </div>
+
+        <div class="grade-4">
+          <article class="card">
+            <div class="passo-numero">1</div>
+            <h3>Redução da sobrecarga docente</h3>
+            <p>Adaptações que antes exigiam reorganização manual extensa podem ser estruturadas de forma mais rápida e previsível.</p>
+          </article>
+
+          <article class="card">
+            <div class="passo-numero">2</div>
+            <h3>Mais segurança pedagógica</h3>
+            <p>O professor recebe apoio para adaptar atividades sem perder objetivos pedagógicos e acessibilidade cognitiva.</p>
+          </article>
+
+          <article class="card">
+            <div class="passo-numero">3</div>
+            <h3>Participação mais acessível</h3>
+            <p>Estudantes conseguem compreender instruções com mais clareza, reduzindo frustração e barreiras de aprendizagem.</p>
+          </article>
+
+          <article class="card">
+            <div class="passo-numero">4</div>
+            <h3>Inclusão com permanência</h3>
+            <p>A adaptação adequada favorece participação, pertencimento e continuidade no processo educacional.</p>
+          </article>
         </div>
       </div>
     </section>
@@ -249,7 +285,7 @@
   <main class="pagina" id="pagina-chat">
     <div class="container">
       <nav class="menu menu-chat">
-        <a class="logo" onclick="mostrarPagina('inicio')">Teia<span class="bolinha-logo"></span></a>
+        <a class="logo" onclick="mostrarPagina('inicio')">Teia<img src="TEIA_icone_app_512x512.png" class="logo-icone" alt="logo TEIA" /></a>
         <a class="botao-voltar" onclick="mostrarPagina('inicio')">← Voltar ao início</a>
       </nav>
 

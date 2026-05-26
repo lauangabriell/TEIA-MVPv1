@@ -60,7 +60,7 @@ REGRAS OBRIGATÓRIAS:
 - melhorar organização visual;
 - adaptar TODAS as questões.
 
-REGRAS DE ADAPTAÇÃO BASEADAS NO PERFIL:
+REGRAS DE ADAPTAÇÃO BASEADAS NO PERFIL(ABA):
 
 Se houver dificuldade de atenção:
 - usar frases curtas;
@@ -72,7 +72,7 @@ Se houver processamento lento:
 - reduzir excesso de informação por bloco.
 
 Se houver dificuldade com múltiplas instruções:
-- apresentar uma instrução por vez.
+- apresentar duas instrução por vez.
 
 Se houver literalidade:
 - evitar linguagem figurada;
@@ -126,7 +126,6 @@ ESTRATÉGIAS UTILIZADAS:
 - reorganização visual
 - redução de carga cognitiva
 - linguagem objetiva
-- fragmentação
 `;
 
 const perguntasFluxo = [
@@ -144,7 +143,7 @@ const perguntasFluxo = [
 4. História
 5. Geografia
 6. Inglês
-7. Outra`
+7. Outra(especifique)`
   },
   {
     chave: "habilidade",
@@ -159,8 +158,7 @@ const perguntasFluxo = [
 7. Associação e classificação
 8. Sequência lógica
 9. Comunicação
-10. Ciências
-11. Outra`
+10. Outra(especifique)`
   },
   {
     chave: "suporte",
@@ -168,8 +166,7 @@ const perguntasFluxo = [
 
 1. Nível 1 — necessita pouco suporte
 2. Nível 2 — necessita suporte moderado
-3. Nível 3 — necessita suporte substancial
-4. Não sei informar`
+3. Nível 3 — necessita suporte substancial`
   },
   {
     chave: "executivas",
@@ -179,13 +176,11 @@ Responda apenas com os números separados por vírgula.
 
 1. Dificuldade de atenção sustentada
 2. Processamento lento
-3. Dificuldade com múltiplas instruções
-4. Necessidade de previsibilidade e rotina
-5. Dificuldade de organização
-6. Dificuldade em iniciar tarefas
-7. Rigidez cognitiva
-8. Hiperfoco
-9. Não observo dificuldades significativas`
+3. Dificuldade com múltiplas instruções 
+4. Dificuldade de organização
+5. Dificuldade em iniciar tarefas
+6. Hiperfoco(especifique)
+7. Não observo dificuldades significativas`
   },
   {
     chave: "sensorial",
@@ -193,13 +188,10 @@ Responda apenas com os números separados por vírgula.
 
 Responda apenas com os números separados por vírgula.
 
-1. Sensibilidade auditiva
-2. Sensibilidade visual
-3. Sensibilidade tátil
-4. Sobrecarga com muito texto
-5. Distração fácil com estímulos visuais
-6. Necessidade de ambiente mais organizado visualmente
-7. Não observo dificuldades sensoriais relevantes`
+1. Sobrecarga com muito texto
+3. Distração fácil com estímulos visuais
+4. Necessidade de ambiente mais organizado visualmente
+5. Não observo dificuldades sensoriais relevantes`
   },
   {
     chave: "linguagem",
@@ -207,13 +199,13 @@ Responda apenas com os números separados por vírgula.
 
 Responda apenas com os números separados por vírgula.
 
-1. Dificuldade de interpretação
-2. Interpretação literal
-3. Dificuldade com perguntas abertas
-4. Melhor compreensão com linguagem objetiva
-5. Dificuldade em identificar ideias principais
-6. Dificuldade social na comunicação
-7. Não observo dificuldades relevantes`
+1. Interpretação literal
+2. Dificuldade com perguntas abertas
+3. Melhor compreensão com linguagem objetiva
+4. Dificuldade em identificar ideias principais
+5. Dificuldade social na comunicação
+6. Não observo dificuldades relevantes
+7. outras (especifique)`
   },
   {
     chave: "pedagogico",
@@ -221,20 +213,19 @@ Responda apenas com os números separados por vírgula.
 
 Responda apenas com os números separados por vírgula.
 
-1. Facilidade com imagens
-2. Boa memória visual
-3. Necessidade de apoio visual
-4. Dificuldade com textos longos
-5. Dificuldade em abstração
-6. Melhor aprendizagem com exemplos concretos
-7. Melhor desempenho com organização visual
-8. Não observo dificuldades pedagógicas relevantes`
+1. Necessidade de apoio visual
+2. Dificuldade com textos longos
+3. Dificuldade em abstração
+4. Melhor aprendizagem com exemplos concretos
+5. Melhor desempenho com organização visual
+6. outras(especifique)
+7. Não observo dificuldades pedagógicas relevantes`
   },
   {
     chave: "formato",
     texto: `Qual formato de adaptação deseja priorizar?
 
-1. Mais visual
+1. mais subjetiva
 2. Mais objetiva
 3. Mais simplificada
 4. Com múltipla escolha
@@ -287,7 +278,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function iniciarChatTeia() {
   adicionarMensagemIA(
-    "Olá! Vou ajudar você a adaptar uma atividade para um estudante com TEA. Primeiro, preciso entender rapidamente o perfil do aluno para gerar uma adaptação adequada."
+    "Olá! Vou ajudar você a adaptar uma atividade para um estudante com TEA. Primeiro, me ajude a entender rapidamente o perfil do aluno para gerar uma adaptação adequada."
   );
 
   setTimeout(() => {
@@ -305,7 +296,7 @@ function enviarMensagemChat() {
     : null;
 
   if (!texto && !arquivo) {
-    alert("Digite uma mensagem ou envie um arquivo.");
+    alert("Digite uma mensagem ou envie um arquivo em pdf.");
     return;
   }
 

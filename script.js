@@ -27,213 +27,7 @@ function irParaSecao(idDaSecao) {
 CHAT TEIA - ADAPTAÇÃO DE ATIVIDADES COM GEMINI
 ====================================================== */
 
-const TEIA_PROMPT_BASE = `
-Você é um agente especializado em adaptação pedagógica inclusiva para estudantes com TEA.
-
-Sua função é adaptar atividades mantendo o objetivo pedagógico original, reduzindo barreiras cognitivas e promovendo acessibilidade educacional.
-
-O sistema considera:
-- funções executivas;
-- perfil sensorial;
-- linguagem e comunicação;
-- necessidade de suporte;
-- perfil pedagógico;
-- acessibilidade cognitiva.
-
-As adaptações são fundamentadas em:
-- educação inclusiva;
-- neuroeducação;
-- funções executivas;
-- metodologia TEACCH;
-- acessibilidade cognitiva;
-- ABA;
-- DSM-5-TR.
-
-REGRAS OBRIGATÓRIAS:
-- não infantilizar;
-- não alterar a habilidade principal;
-- não remover conteúdo pedagógico essencial;
-- usar linguagem clara, objetiva e previsível;
-- reduzir carga cognitiva;
-- fragmentar instruções longas;
-- evitar ambiguidades;
-- melhorar organização visual;
-- adaptar TODAS as questões.
-
-REGRAS DE ADAPTAÇÃO BASEADAS NO PERFIL(ABA):
-
-Se houver dificuldade de atenção:
-- usar frases curtas;
-- destacar informações importantes;
-- reduzir distrações textuais.
-
-Se houver processamento lento:
-- dividir comandos em etapas menores;
-- reduzir excesso de informação por bloco.
-
-Se houver dificuldade com múltiplas instruções:
-- apresentar duas instrução por vez.
-
-Se houver literalidade:
-- evitar linguagem figurada;
-- usar linguagem objetiva e explícita.
-
-Se houver dificuldade de interpretação:
-- simplificar estruturas complexas;
-- explicitar contexto e objetivo.
-
-Se houver dificuldade com perguntas abertas:
-- priorizar múltipla escolha;
-- associação;
-- respostas guiadas.
-
-Se houver sensibilidade visual:
-- reduzir poluição visual.
-
-Se houver sobrecarga com muito texto:
-- reduzir densidade textual;
-- usar espaçamento;
-- organizar em tópicos.
-
-Se houver necessidade de apoio visual:
-- usar tabelas;
-- separações visuais;
-- organização em blocos.
-
-Se houver dificuldade em abstração:
-- utilizar exemplos concretos;
-- contextualização prática.
-
-REGRAS DE FORMATAÇÃO:
-- não usar markdown;
-- não usar asteriscos, negrito, itálico ou qualquer símbolo de formatação;
-- usar apenas texto simples e quebras de linha;
-- o texto será exportado diretamente para PDF e DOCX.
-
-FORMATO DE RESPOSTA PARA CADA QUESTÃO:
-
-QUESTÃO ORIGINAL:
-[transcrever]
-
-VERSÃO ADAPTADA:
-[adaptar]
-
-ESTRATÉGIAS UTILIZADAS:
-- simplificação textual
-- chunking
-- previsibilidade
-- apoio visual
-- reorganização visual
-- redução de carga cognitiva
-- linguagem objetiva
-`;
-
-const perguntasFluxo = [
-  {
-    chave: "serie",
-    texto: "Qual é a série/ano do estudante?"
-  },
-  {
-    chave: "disciplina",
-    texto: `Qual é a disciplina da atividade?
-
-1. Português
-2. Matemática
-3. Ciências
-4. História
-5. Geografia
-6. Inglês
-7. Outra(especifique)`
-  },
-  {
-    chave: "habilidade",
-    texto: `Qual habilidade principal deseja avaliar? Responda apenas com o número.
-
-1. Leitura
-2. Escrita
-3. Interpretação de texto
-4. Matemática básica
-5. Raciocínio lógico
-6. Atenção e concentração
-7. Associação e classificação
-8. Sequência lógica
-9. Comunicação
-10. Outra(especifique)`
-  },
-  {
-    chave: "suporte",
-    texto: `Qual nível de suporte do estudante?
-
-1. Nível 1 — necessita pouco suporte
-2. Nível 2 — necessita suporte moderado
-3. Nível 3 — necessita suporte substancial`
-  },
-  {
-    chave: "executivas",
-    texto: `Quais características cognitivas você observa no estudante?
-
-Responda apenas com os números separados por vírgula.
-
-1. Dificuldade de atenção sustentada
-2. Processamento lento
-3. Dificuldade com múltiplas instruções 
-4. Dificuldade de organização
-5. Dificuldade em iniciar tarefas
-6. Hiperfoco(especifique)
-7. Não observo dificuldades significativas`
-  },
-  {
-    chave: "sensorial",
-    texto: `Quais características sensoriais você observa?
-
-Responda apenas com os números separados por vírgula.
-
-1. Sobrecarga com muito texto
-3. Distração fácil com estímulos visuais
-4. Necessidade de ambiente mais organizado visualmente
-5. Não observo dificuldades sensoriais relevantes`
-  },
-  {
-    chave: "linguagem",
-    texto: `Quais características de linguagem e comunicação você observa?
-
-Responda apenas com os números separados por vírgula.
-
-1. Interpretação literal
-2. Dificuldade com perguntas abertas
-3. Melhor compreensão com linguagem objetiva
-4. Dificuldade em identificar ideias principais
-5. Dificuldade social na comunicação
-6. Não observo dificuldades relevantes
-7. outras (especifique)`
-  },
-  {
-    chave: "pedagogico",
-    texto: `Quais características de aprendizagem você observa?
-
-Responda apenas com os números separados por vírgula.
-
-1. Necessidade de apoio visual
-2. Dificuldade com textos longos
-3. Dificuldade em abstração
-4. Melhor aprendizagem com exemplos concretos
-5. Melhor desempenho com organização visual
-6. outras(especifique)
-7. Não observo dificuldades pedagógicas relevantes`
-  },
-  {
-    chave: "formato",
-    texto: `Qual formato de adaptação deseja priorizar?
-
-1. mais subjetiva
-2. Mais objetiva
-3. Mais simplificada
-4. Com múltipla escolha
-5. Com associação
-6. Mista`
-  }
-];
-
+let perguntasFluxo = [];
 let etapaAtual = 0;
 let parametrosAluno = {};
 let aguardandoAtividade = false;
@@ -276,10 +70,20 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-function iniciarChatTeia() {
+async function iniciarChatTeia() {
   adicionarMensagemIA(
     "Olá! Vou ajudar você a adaptar uma atividade para um estudante com TEA. Primeiro, me ajude a entender rapidamente o perfil do aluno para gerar uma adaptação adequada."
   );
+
+  try {
+    const resposta = await fetch("/api/perguntas");
+    if (!resposta.ok) throw new Error("Falha ao carregar perguntas.");
+    perguntasFluxo = await resposta.json();
+  } catch (erro) {
+    console.error(erro);
+    adicionarMensagemIA("Não consegui carregar o fluxo de perguntas. Recarregue a página e tente novamente.");
+    return;
+  }
 
   setTimeout(() => {
     adicionarMensagemIA(perguntasFluxo[0].texto);
@@ -339,7 +143,7 @@ function registrarParametro(respostaUsuario) {
   aguardandoAtividade = true;
 
   adicionarMensagemIA(
-    "Perfeito! Agora envie a atividade original que deseja adaptar. Você pode colar o texto no chat ou anexar um arquivo PDF, DOC, DOCX ou TXT."
+    "Perfeito! Agora envie a atividade original que deseja adaptar. Você pode colar o texto no chat ou anexar um arquivo PDF."
   );
 }
 
@@ -366,7 +170,6 @@ async function enviarAtividadeParaGemini(textoAtividade, arquivo) {
   mostrarCarregando();
 
   const formData = new FormData();
-  formData.append("promptBase", TEIA_PROMPT_BASE);
   formData.append("parametros", JSON.stringify(parametrosAluno));
   formData.append("atividadeTexto", textoAtividade || "");
   if (arquivo) formData.append("arquivo", arquivo);

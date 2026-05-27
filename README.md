@@ -157,10 +157,15 @@ Siga os passos abaixo para rodar o projeto localmente:
 **2. Extraia o projeto e abra a pasta do projeto:**
 
 ```bash
-cd teia
+Com a pasta do projeto aberto
 ```
 
 **3. Instale as dependências:**
+<p>Tenha o node instalado</p>
+<div align="center">
+  <img src="assets/images/cmd.png" alt="Chat TEIA" width="80%"/>
+</div>
+<p>abra o cmd na pasta do projeto</p>
 
 ```bash
 npm install

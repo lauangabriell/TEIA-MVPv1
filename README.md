@@ -132,7 +132,7 @@ As seguintes tecnologias foram utilizadas no desenvolvimento da TEIA:
                                              ▼
                               ┌──────────────────────────────┐
                               │ 2. Entrada do Usuário        │
-                              │ Pergunta, comando ou pedido  │
+                              │(monta o perfil do usuario)   │
                               └──────────────┬───────────────┘
                                              │
                                              ▼

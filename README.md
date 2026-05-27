@@ -121,6 +121,44 @@ As seguintes tecnologias foram utilizadas no desenvolvimento da TEIA:
 
 ---
 
+## Estrutura da Plataforma
+
+```text
+                              ┌──────────────────────────────┐
+                              │ 1. Interface Web             │
+                              │ Tela utilizada pelo usuário  │
+                              └──────────────┬───────────────┘
+                                             │
+                                             ▼
+                              ┌──────────────────────────────┐
+                              │ 2. Entrada do Usuário        │
+                              │ Pergunta, comando ou pedido  │
+                              └──────────────┬───────────────┘
+                                             │
+                                             ▼
+                              ┌──────────────────────────────┐
+                              │ 3. Backend                   │
+                              │ Recebe e organiza o pedido   │
+                              └──────────────┬───────────────┘
+                                             │
+                                             ▼
+                              ┌──────────────────────────────┐
+                              │ 4. Requisição à API          │
+                              │ Envia os dados para a IA     │
+                              └──────────────┬───────────────┘
+                                             │
+                                             ▼
+                              ┌──────────────────────────────┐
+                              │ 5. Processamento da IA       │
+                              │ Interpreta e gera a resposta │
+                              └──────────────┬───────────────┘
+                                             │
+                                             ▼
+                              ┌──────────────────────────────┐
+                              │ 6. Output / Resultado Final  │
+                              │ Exibe a resposta ao usuário  │
+                              └──────────────────────────────┘
+```
 ## Dependências
 
 Para executar o projeto localmente, você precisará ter instalado:

@@ -161,12 +161,13 @@ Com a pasta do projeto aberto
 ```
 
 **3. Instale as dependências:**
-<p>Tenha o node instalado</p>
+<p>"Tenha o node instalado"</p>
 <div align="center">
   <img src="assets/images/cmd.png" alt="Chat TEIA" width="80%"/>
 </div>
-<p>abra o cmd na pasta do projeto</p>
+<p>"abra o cmd na pasta do projeto"</p>
 
+## Execute os seguintes comandos abaixo
 ```bash
 npm install
 ```
@@ -180,7 +181,7 @@ node server.js
 **5. Acesse no navegador:**
 
 ```
-http://localhost:3000
+http://localhost:6767
 ```
 
 ---

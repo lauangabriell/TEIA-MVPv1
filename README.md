@@ -121,44 +121,16 @@ As seguintes tecnologias foram utilizadas no desenvolvimento da TEIA:
 
 ---
 
+
+</div>
+
 ## Estrutura da Plataforma
 
-```text
-                              ┌──────────────────────────────┐
-                              │ 1. Interface Web             │
-                              │ Tela utilizada pelo usuário  │
-                              └──────────────┬───────────────┘
-                                             │
-                                             ▼
-                              ┌──────────────────────────────┐
-                              │ 2. Entrada do Usuário        │
-                              │(monta o perfil do usuario)   │
-                              └──────────────┬───────────────┘
-                                             │
-                                             ▼
-                              ┌──────────────────────────────┐
-                              │ 3. Backend                   │
-                              │ Recebe e organiza o pedido   │
-                              └──────────────┬───────────────┘
-                                             │
-                                             ▼
-                              ┌──────────────────────────────┐
-                              │ 4. Requisição à API          │
-                              │ Envia os dados para a IA     │
-                              └──────────────┬───────────────┘
-                                             │
-                                             ▼
-                              ┌──────────────────────────────┐
-                              │ 5. Processamento da IA       │
-                              │ Interpreta e gera a resposta │
-                              └──────────────┬───────────────┘
-                                             │
-                                             ▼
-                              ┌──────────────────────────────┐
-                              │ 6. Output / Resultado Final  │
-                              │ Exibe a resposta ao usuário  │
-                              └──────────────────────────────┘
-```
+<div align="center">
+  <img src="assets/images/Estruturaa.png" alt="TEIA - Plataforma" width="100%"/>
+</div>
+
+
 ## Dependências
 
 Para executar o projeto localmente, você precisará ter instalado:

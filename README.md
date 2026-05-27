@@ -148,13 +148,13 @@ Para executar o projeto localmente, você precisará ter instalado:
 
 Siga os passos abaixo para rodar o projeto localmente:
 
-**1. Clone o repositório:**
+**1. Download:**
 
-```bash
-git clone https://github.com/lauangabriell/TEIA-MVPv1
-```
+<div align="center">
+  <img src="assets/images/ensino.png" alt="Chat TEIA" width="80%"/>
+</div>
 
-**2. Acesse a pasta do projeto:**
+**2. Extraia o projeto e abra a pasta do projeto:**
 
 ```bash
 cd teia
